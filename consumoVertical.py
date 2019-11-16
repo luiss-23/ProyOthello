@@ -8,12 +8,6 @@ def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
                 A[i-1][j] == turno
                 consumoVertical(A, i - 1, j, turno)
             elif ( A[i+1][j] == 0 or A[i+1][j] == turno ):
-                pass
+                break
             elif ( A[i-1][j] == 0 or A[i-1][j] == turno):
-                pass
-
-
-        
-
-        
-    
+                break
