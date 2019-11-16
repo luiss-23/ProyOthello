@@ -1,14 +1,15 @@
 import random 
 import sys
 
+
 #Creacion del tablero
 Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0, 0],
             [0, 0, 0, 1, 2, 0, 0, 0],
             [0, 0, 0, 2, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0] ]
             
 print(Tablero)
@@ -51,6 +52,10 @@ def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
                 A[i-1][j] == turno
                 consumoVertical(A, i - 1, j, turno)
             elif ( A[i+1][j] == 0 or A[i+1][j] == turno ):
-                pass
+                break
             elif ( A[i-1][j] == 0 or A[i-1][j] == turno):
-                pass
+                break
+
+reflejarJugada(Tablero, F, C, Turno)
+consumoVertical(Tablero, F, C, Turno)
+print(Tablero)
