@@ -72,7 +72,7 @@ def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
             elif ( A[i][j-1] == 0 or A[i][j-1] == turno):
                 break
         else:
-            break
+            pass
 
 reflejarJugada(Tablero, F, C, Turno)
 consumoHorizontal(Tablero, F, C, Turno)
