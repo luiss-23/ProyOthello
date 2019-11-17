@@ -5,7 +5,7 @@ import sys
 #Creacion del tablero
 Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 1, 2, 0, 0, 1, 1, 2],
+            [2, 1, 1, 0, 1, 2, 1, 2],
             [0, 0, 0, 1, 2, 0, 0, 0],
             [0, 0, 0, 2, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -70,7 +70,7 @@ def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
             elif A[i][j+1]==turno:
                 for t in range (k,j+1):
                     A[i][t]=turno  
-                j=j+1         
+                j=7        
     elif j==7:
         pass
     j=k
@@ -83,7 +83,7 @@ def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
             elif A[i][j-1]==turno:
                 for z in range (j-1,k):
                     A[i][z]=turno
-                j=j-1
+                j=0
     elif j==0:
         pass 
 
