@@ -3,11 +3,11 @@ import sys
 
 
 #Creacion del tablero
-Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
+Tablero = [ [0, 2, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [2, 1, 1, 0, 1, 2, 1, 2],
-            [0, 0, 0, 1, 2, 0, 0, 0],
-            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 1, 0, 1, 2, 0, 0, 0],
+            [0, 2, 0, 2, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0] ]
@@ -43,20 +43,33 @@ def reflejarJugada( A: [int], i: int, j: int, turno: int) -> 'void':
     A[i][j] = turno
 
 def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
-    for i in range(0,8):
-        if ( A[i][j] == turno ):
-            if ( A[i+1][j] != 0 and A[i+1][j] != turno ):
-                A[i+1][j] = turno
-                consumoVertical(A, i + 1, j, turno)
-            elif ( A[i-1][j] != 0 and A[i-1][j] != turno ):
-                A[i-1][j] == turno
-                consumoVertical(A, i - 1, j, turno)
-            elif ( A[i+1][j] == 0 or A[i+1][j] == turno ):
-                break
-            elif ( A[i-1][j] == 0 or A[i-1][j] == turno):
-                break
-        else:
-            pass
+    k=int
+    k=i
+    if i!=7:
+        while i<7:
+            if A[i+1][j]!=turno and A[i+1][j]!=0:
+                i=i+1
+            elif A[i+1][j]==0:
+                i=7
+            elif A[i+1][j]==turno:
+                for t in range (k,i+1):
+                    A[t][j]=turno  
+                i=7        
+    elif i==7:
+        pass
+    i=k
+    if i!=0:
+        while i>0:
+            if A[i-1][j]!=turno and A[i-1][j]!=0:
+                i=i-1
+            elif A[i-1][j]==0:
+                i=0
+            elif A[i-1][j]==turno:
+                for z in range (i-1,k):
+                    A[z][j]=turno
+                i=0
+    elif i==0:
+        pass 
 
 def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
     k=int
@@ -89,5 +102,5 @@ def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
 
 reflejarJugada(Tablero, F, C, Turno)
 consumoVertical(Tablero, F, C, Turno)
-consumoHorizontal(Tablero, F, C, Turno)
+
 print(Tablero)
