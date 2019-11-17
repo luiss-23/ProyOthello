@@ -110,12 +110,14 @@ def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
                 j = j + 1
             elif A[i-1][j+1] == 0:
                 i = 0
+                j = 7
             elif A[i-1][j+1] == turno:
                 i = k
                 for r in range(l,j+1):
                     A[i][r] = turno
                     i = i - 1
                 i = 0
+                j = 7
     elif i == 0 and j == 7:
         pass
     i = k
