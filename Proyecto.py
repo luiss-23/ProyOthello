@@ -3,14 +3,14 @@ import sys
 
 
 #Creacion del tablero
-Tablero = [ [0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 2, 0, 0, 0, 2, 0, 0],
-            [0, 0, 1, 0, 2, 0, 0, 0],
+Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 1, 2, 0, 0, 0],
-            [0, 0, 0, 2, 0, 0, 0, 0],
-            [0, 2, 0, 0, 0, 1, 0, 0],
-            [1, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 2] ]
+            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0] ]
             
 print(Tablero)
 
@@ -20,16 +20,12 @@ nombreJugador1 = input("Ingrese el nombre del jugador 1: ")
 nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
 
 #Variables
-fichas = 64
+fichas = 60
 movimientos = 0 
 
 #Eleccion del primer jugador
 Jugadores = [1,2]
-Turno = random.choice(Jugadores)
-print('El primer jugador es: ' +str(Turno))
 
-F = int(input('Introduza la fila donde se hara el movimiento: '))
-C = int(input('Introduza la columna donde se hara el movimiento: '))
 
 def cambiarJugador(turn:int) -> 'void':
     if turn==1:
@@ -183,8 +179,27 @@ def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
     elif i == 0 and j == 0:
         pass
 
+def quedanFichas(F:int,R:int)->bool:
+    if F-R==0:
+        quedan=False
+    elif F-R!=0:
+        quedan=True
+    return quedan
 
-reflejarJugada(Tablero, F, C, Turno)
-consumoDiagonal(Tablero, F, C, Turno)
+def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
+    consumoDiagonal(Tablero, F, C, Turno)
+    consumoHorizontal(Tablero, F, C, Turno)
+    consumoVertical(Tablero, F, C, Turno)
 
-print(Tablero)
+Turno = random.choice(Jugadores)
+print('El primer jugador es: ' +str(Turno))
+
+while quedanFichas(fichas, movimientos) == True:
+    F = int(input('Introduza la fila donde se hara el movimiento: '))
+    C = int(input('Introduza la columna donde se hara el movimiento: '))
+    consumo(Tablero, F, C, Turno)
+    reflejarJugada(Tablero, F, C, Turno)
+    print(Tablero)
+    Turno = cambiarJugador(Turno)
+    print('El siguiente jugador es: ' +str(Turno))
+    movimientos = movimientos + 1
