@@ -5,7 +5,7 @@ import sys
 #Creacion del tablero
 Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
+            [2, 1, 1, 0, 1, 0, 0, 0],
             [0, 0, 0, 1, 2, 0, 0, 0],
             [0, 0, 0, 2, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -56,7 +56,7 @@ def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
             elif ( A[i-1][j] == 0 or A[i-1][j] == turno):
                 break
         else:
-            break
+            pass
 
 def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
     for j in range(0,8):
@@ -75,5 +75,6 @@ def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
             pass
 
 reflejarJugada(Tablero, F, C, Turno)
+consumoVertical(Tablero, F, C, Turno)
 consumoHorizontal(Tablero, F, C, Turno)
 print(Tablero)
