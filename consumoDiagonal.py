@@ -40,6 +40,7 @@ def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
     elif i == 7 and j == 7:
         pass
     
+    
     i=k
     j=l
 

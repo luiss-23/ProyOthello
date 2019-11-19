@@ -26,3 +26,4 @@ def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
                 i=0
     elif i==0:
         pass 
+        

@@ -27,3 +27,4 @@ def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
     elif j==0:
         pass 
 
+

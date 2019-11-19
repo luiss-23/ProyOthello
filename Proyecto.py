@@ -203,3 +203,4 @@ while quedanFichas(fichas, movimientos) == True:
     Turno = cambiarJugador(Turno)
     print('El siguiente jugador es: ' +str(Turno))
     movimientos = movimientos + 1
+    
