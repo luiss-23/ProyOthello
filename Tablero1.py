@@ -8,7 +8,7 @@ width = 400
 height = 400
 red=(255,0,0)
 white=(255,255,255)
-
+turno = 0
 window = pygame.display.set_mode((width, height))
 
 game_over = False
@@ -34,24 +34,23 @@ while not game_over:
 	pygame.draw.circle(window,white,(175,175),20)
 	pygame.draw.circle(window,white,(225,225),20)
 	
-	turno=0
+	
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
-		if turno%2==0:
-			color=red
-			turno=turno+1
-		elif turno%2!=0:
-			color=white
-			turno=turno+1
+
+		if turno % 2 == 0:
+			color = red
+			
+		elif turno % 2 != 0:
+			color = white
+		
+
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			position = pygame.mouse.get_pos()
 			pygame.draw.circle(window,color,position,20)
+			turno = turno + 1
 	
-
-			
-
-
 
 	print(event)
 	print(position)
