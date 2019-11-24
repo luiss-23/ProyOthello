@@ -1,31 +1,72 @@
-import random 
+import pygame
 import sys
+import random
 
+pygame.display.set_caption("Reversi")
+pygame.init()
+position=()
+width = 400
+height = 400
+red=(255,0,0)
+white=(255,255,255)
+turno=0
+clock = pygame.time.Clock()
+window = pygame.display.set_mode((width, height))
+Jugadores = [1,2]
 
-#Creacion del tablero
 Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 2, 0, 0, 0],
             [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 0, 1, 2, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0] ]
-            
-print(Tablero)
-
 
 #Nombres Jugadores
-nombreJugador1 = input("Ingrese el nombre del jugador 1: ")
-nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
+nombreJugador1 = input("Ingrese el nombre del jugador 1(Rojo): ")
+nombreJugador2 = input("Ingrese el nombre del jugador 2(Blanco): ")
+Turno = random.choice(Jugadores)
+print('El primer jugador es: ' +str(Turno))
 
 #Variables
 fichas = 60
 movimientos = 0 
 
-#Eleccion del primer jugador
-Jugadores = [1,2]
-
+def boardPos (mouseX, mouseY):
+    if (mouseY < 50):
+        row = 0
+    elif (mouseY < 100):
+        row = 1
+    elif (mouseY <150):
+        row = 2
+    elif (mouseY < 200):
+        row = 3
+    elif (mouseY <250):
+        row = 4    
+    elif (mouseY <300):
+        row = 5
+    elif (mouseY <350):
+        row = 6
+    elif (mouseY < 400):
+        row = 7
+    if (mouseX < 50):
+        col = 0
+    elif (mouseX < 100):
+        col = 1
+    elif (mouseX <150):
+        col = 2
+    elif (mouseX < 200):
+        col = 3
+    elif (mouseX <250):
+        col = 4    
+    elif (mouseX <300):
+        col = 5
+    elif (mouseX <350):
+        col = 6
+    elif (mouseX < 400):
+        col = 7
+    return (row, col)
 
 def cambiarJugador(turn:int) -> 'void':
     if turn==1:
@@ -33,7 +74,6 @@ def cambiarJugador(turn:int) -> 'void':
     elif turn==2:
         turn=1
     return turn
-
 
 def reflejarJugada( A: [int], i: int, j: int, turno: int) -> 'void':
     A[i][j] = turno
@@ -191,16 +231,76 @@ def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
     consumoHorizontal(Tablero, F, C, Turno)
     consumoVertical(Tablero, F, C, Turno)
 
-Turno = random.choice(Jugadores)
-print('El primer jugador es: ' +str(Turno))
+game_over = False
 
-while quedanFichas(fichas, movimientos) == True:
-    F = int(input('Introduza la fila donde se hara el movimiento: '))
-    C = int(input('Introduza la columna donde se hara el movimiento: '))
-    consumo(Tablero, F, C, Turno)
-    reflejarJugada(Tablero, F, C, Turno)
-    print(Tablero)
-    Turno = cambiarJugador(Turno)
-    print('El siguiente jugador es: ' +str(Turno))
-    movimientos = movimientos + 1
-    
+while not game_over:
+
+	pygame.draw.line(window, (255,255,255),(50,400),(50,0),2)
+	pygame.draw.line(window, (255,255,255),(100,400),(100,0),2)
+	pygame.draw.line(window, (255,255,255),(150,400),(150,0),2)
+	pygame.draw.line(window, (255,255,255),(200,400),(200,0),2)
+	pygame.draw.line(window, (255,255,255),(250,400),(250,0),2)
+	pygame.draw.line(window, (255,255,255),(300,400),(300,0),2)
+	pygame.draw.line(window, (255,255,255),(350,400),(350,0),2)
+	pygame.draw.line(window, (255,255,255),(0,50),(400,50),2)
+	pygame.draw.line(window, (255,255,255),(0,100),(400,100),2)
+	pygame.draw.line(window, (255,255,255),(0,150),(400,150),2)
+	pygame.draw.line(window, (255,255,255),(0,200),(400,200),2)
+	pygame.draw.line(window, (255,255,255),(0,250),(400,250),2)
+	pygame.draw.line(window, (255,255,255),(0,300),(400,300),2)
+	pygame.draw.line(window, (255,255,255),(0,350),(400,350),2)
+	pygame.draw.circle(window,red,(175,225),20)
+	pygame.draw.circle(window,red,(225,175),20)
+	pygame.draw.circle(window,white,(175,175),20)
+	pygame.draw.circle(window,white,(225,225),20)
+	
+	
+	for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                (mouseX, mouseY) = pygame.mouse.get_pos()
+                (row, col) = boardPos (mouseX, mouseY)
+                F=row
+                C=col
+                centerX = ((col) * 50)+25
+                centerY = ((row) * 50)+25
+                if Turno==1:
+                    color=red
+                elif Turno==2:
+                    color=white
+                pygame.draw.circle(window,color,(centerX,centerY),20)
+                consumo(Tablero, F, C, Turno)
+                reflejarJugada(Tablero, F, C, Turno)
+                Turno = cambiarJugador(Turno)
+                print("El turno es del jugador:", Turno)
+                for i in range (0,8):
+                    for j in range(0,8):
+                        if Tablero[i][j]==1:
+                            color=red
+                            row=i
+                            col=j
+                            centerX = ((col) * 50)+25
+                            centerY = ((row) * 50)+25
+                            pygame.draw.circle(window,color,(centerX,centerY),20)
+                        elif Tablero[i][j]==2:
+                            color=white
+                            row=i
+                            col=j
+                            centerX = ((col) * 50)+25
+                            centerY = ((row) * 50)+25
+                            pygame.draw.circle(window,color,(centerX,centerY),20)
+                        else: pass
+                pygame.display.update()
+
+
+	clock.tick(10)
+				
+	
+
+			
+
+
+
+	
+	
