@@ -23,6 +23,15 @@ Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0] ]
 
+Copia =   [ [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0] ]
+
 #Nombres Jugadores
 nombreJugador1 = input("Ingrese el nombre del jugador 1(Rojo): ")
 nombreJugador2 = input("Ingrese el nombre del jugador 2(Blanco): ")
@@ -67,6 +76,27 @@ def boardPos (mouseX, mouseY):
     elif (mouseX < 400):
         col = 7
     return (row, col)
+
+def esValida(A:[int],B:[int],i:int,j:int,turneto:int)->bool:
+    Valida=False
+    if A[i][j]!=0:
+        pass
+    elif A[i][j] == 0:
+        for a in range (0,8):
+            for b in range (0,8):
+                B[a][b]=A[a][b]
+        consumo(B, i, j,turneto)
+        reflejarJugada(B,i,j,turneto)
+        for a in range (0,8):
+            for b in range (0,8):
+                if a==i and b==j:
+                    pass
+                elif a!=i or b!=j:
+                    if A[a][b]==B[a][b]:
+                        pass
+                    elif A[a][b]!=B[a][b]:
+                        Valida=True 
+    return Valida
 
 def cambiarJugador(turn:int) -> 'void':
     if turn==1:
@@ -269,28 +299,32 @@ while not game_over:
                     color=red
                 elif Turno==2:
                     color=white
-                pygame.draw.circle(window,color,(centerX,centerY),20)
-                consumo(Tablero, F, C, Turno)
-                reflejarJugada(Tablero, F, C, Turno)
-                Turno = cambiarJugador(Turno)
-                print("El turno es del jugador:", Turno)
-                for i in range (0,8):
-                    for j in range(0,8):
-                        if Tablero[i][j]==1:
-                            color=red
-                            row=i
-                            col=j
-                            centerX = ((col) * 50)+25
-                            centerY = ((row) * 50)+25
-                            pygame.draw.circle(window,color,(centerX,centerY),20)
-                        elif Tablero[i][j]==2:
-                            color=white
-                            row=i
-                            col=j
-                            centerX = ((col) * 50)+25
-                            centerY = ((row) * 50)+25
-                            pygame.draw.circle(window,color,(centerX,centerY),20)
-                        else: pass
+                if esValida(Tablero,Copia,F,C,Turno)==True:
+                    pygame.draw.circle(window,color,(centerX,centerY),20)
+                    consumo(Tablero, F, C, Turno)
+                    reflejarJugada(Tablero, F, C, Turno)
+                    Turno = cambiarJugador(Turno)
+                    print("El turno es del jugador:", Turno)
+                    for i in range (0,8):
+                        for j in range(0,8):
+                            if Tablero[i][j]==1:
+                                color=red
+                                row=i
+                                col=j
+                                centerX = ((col) * 50)+25
+                                centerY = ((row) * 50)+25
+                                pygame.draw.circle(window,color,(centerX,centerY),20)
+                            elif Tablero[i][j]==2:
+                                color=white
+                                row=i
+                                col=j
+                                centerX = ((col) * 50)+25
+                                centerY = ((row) * 50)+25
+                                pygame.draw.circle(window,color,(centerX,centerY),20)
+                            else: pass
+                elif esValida(Tablero,Copia,F,C,Turno)==False:
+                    print("La jugada introducida no es valida.")
+                    print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
                 pygame.display.update()
 
 

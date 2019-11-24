@@ -11,6 +11,15 @@ Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0] ]
+
+Copia =   [ [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0] ]
             
 print(Tablero)
 
@@ -26,6 +35,26 @@ movimientos = 0
 #Eleccion del primer jugador
 Jugadores = [1,2]
 
+def esValida(A:[int],B:[int],i:int,j:int,turneto:int)->bool:
+    Valida=False
+    if A[i][j]!=0:
+        pass
+    elif A[i][j] == 0:
+        for a in range (0,8):
+            for b in range (0,8):
+                B[a][b]=A[a][b]
+        consumo(B, i, j,turneto)
+        reflejarJugada(B,i,j,turneto)
+        for a in range (0,8):
+            for b in range (0,8):
+                if a==i and b==j:
+                    pass
+                elif a!=i or b!=j:
+                    if A[a][b]==B[a][b]:
+                        pass
+                    elif A[a][b]!=B[a][b]:
+                        Valida=True 
+    return Valida
 
 def cambiarJugador(turn:int) -> 'void':
     if turn==1:
@@ -197,10 +226,13 @@ print('El primer jugador es: ' +str(Turno))
 while quedanFichas(fichas, movimientos) == True:
     F = int(input('Introduza la fila donde se hara el movimiento: '))
     C = int(input('Introduza la columna donde se hara el movimiento: '))
-    consumo(Tablero, F, C, Turno)
-    reflejarJugada(Tablero, F, C, Turno)
-    print(Tablero)
-    Turno = cambiarJugador(Turno)
-    print('El siguiente jugador es: ' +str(Turno))
-    movimientos = movimientos + 1
-    
+    if esValida(Tablero,Copia,F,C,Turno)==True:
+        consumo(Tablero, F, C, Turno)
+        reflejarJugada(Tablero, F, C, Turno)
+        print(Tablero)
+        Turno = cambiarJugador(Turno)
+        print('El siguiente jugador es: ' +str(Turno))
+        movimientos = movimientos + 1
+    elif esValida(Tablero,Copia,F,C,Turno)==False:
+        print("La jugada introducida no es valida.")
+        print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
