@@ -11,8 +11,10 @@ Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0] ]
-            
-print(Tablero)
+for i in range(len(Tablero)):
+    for j in range(len(Tablero[i])):
+        print(Tablero[i][j], end=' ')
+    print()
 
 
 #Nombres Jugadores
@@ -199,7 +201,10 @@ while quedanFichas(fichas, movimientos) == True:
     C = int(input('Introduza la columna donde se hara el movimiento: '))
     consumo(Tablero, F, C, Turno)
     reflejarJugada(Tablero, F, C, Turno)
-    print(Tablero)
+    for i in range(len(Tablero)):
+        for j in range(len(Tablero[i])):
+            print(Tablero[i][j], end=' ')
+        print()    
     Turno = cambiarJugador(Turno)
     print('El siguiente jugador es: ' +str(Turno))
     movimientos = movimientos + 1
