@@ -20,8 +20,11 @@ Copia =   [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0] ]
-            
-print(Tablero)
+
+for i in range(len(Tablero)):
+    for j in range(len(Tablero[i])):
+        print(Tablero[i][j], end=' ')
+    print()
 
 
 #Nombres Jugadores
@@ -226,13 +229,16 @@ print('El primer jugador es: ' +str(Turno))
 while quedanFichas(fichas, movimientos) == True:
     F = int(input('Introduza la fila donde se hara el movimiento: '))
     C = int(input('Introduza la columna donde se hara el movimiento: '))
-    if esValida(Tablero,Copia,F,C,Turno)==True:
+    if esValida(Tablero,Copia,F,C,Turno) == True:
         consumo(Tablero, F, C, Turno)
         reflejarJugada(Tablero, F, C, Turno)
-        print(Tablero)
+        for i in range(len(Tablero)):
+            for j in range(len(Tablero[i])):
+                print(Tablero[i][j], end=' ')
+            print()
         Turno = cambiarJugador(Turno)
         print('El siguiente jugador es: ' +str(Turno))
         movimientos = movimientos + 1
-    elif esValida(Tablero,Copia,F,C,Turno)==False:
+    elif esValida(Tablero,Copia,F,C,Turno) == False:
         print("La jugada introducida no es valida.")
         print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
