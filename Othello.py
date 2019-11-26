@@ -322,7 +322,7 @@ while not game_over:
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			(mouseX, mouseY) = pygame.mouse.get_pos()
 			(row, col) = boardPos(mouseX, mouseY)
-			F, C = r, c 
+			F, C = row, col 
 			centerX = ((col) * 50) + 50
 			centerY = ((row) * 50) + 50
 
