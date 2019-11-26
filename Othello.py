@@ -50,7 +50,7 @@ movimientos = 0
 
 #Funciones para poder jugar
 def boardPos(mouseX, mouseY):
-	#Numero de fila dado por la posicion de click
+	#Numero de fila y columna dado por la posicion de click
 	if (mouseY < 200):
 		row = 0 
 	elif (mouseY < 300):
@@ -67,8 +67,6 @@ def boardPos(mouseX, mouseY):
 		row = 6
 	elif (mouseY < 900):
 		row = 7 
-
-	#Numero de columna dado por la posicion de click
 	elif (mouseX < 200):
 		col = 0
 	elif (mouseX < 300):
@@ -324,7 +322,7 @@ while not game_over:
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			(mouseX, mouseY) = pygame.mouse.get_pos()
 			(row, col) = boardPos(mouseX, mouseY)
-			F, C = row, col 
+			F, C = r, c 
 			centerX = ((col) * 50) + 50
 			centerY = ((row) * 50) + 50
 
