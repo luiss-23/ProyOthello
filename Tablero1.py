@@ -325,7 +325,7 @@ while not game_over:
 			(mouseX, mouseY) = pygame.mouse.get_pos()
 			(row, col) = boardPos(mouseX, mouseY)
 			F, C = row, col
-			centerX, centerY = ((col) * 50) + 25, ((row) * 50) + 25
+            centerX, centerY = ((col) * 50) + 50, ((row) * 50) + 50 
 
 			if Turno == 1:
 				color = BLACK
@@ -342,13 +342,17 @@ while not game_over:
 					for j in range(0,8):
 						if Tablero[i][j] == 1:
 							color == BLACK
-							row, col =i, j
-							centerX, centerY = ((col) * 50) + 25, ((row) * 50) + 25
+							row = i 
+                            col = j
+							centerX = ((col) * 50) + 50
+                            centerY = ((row) * 50) + 50
 							pygame.draw.circle(window, color, (centerX,centerY), 20)
 						elif Tablero[i][j] == 2:
 							color == WHITE
-							row, col =i, j
-							centerX, centerY = ((col) * 50) + 25, ((row) * 50) + 25
+							row = i 
+                            col = j
+                            centerX = ((col) * 50) + 50
+                            centerY = ((row) * 50) + 50
 							pygame.draw.circle(window, color, (centerX,centerY), 20)
 						else: 
 							pass
