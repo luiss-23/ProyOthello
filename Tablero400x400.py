@@ -257,9 +257,9 @@ def quedanFichas(F:int,R:int)->bool:
     return quedan
 
 def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
-    consumoDiagonal(Tablero, F, C, Turno)
-    consumoHorizontal(Tablero, F, C, Turno)
-    consumoVertical(Tablero, F, C, Turno)
+    consumoDiagonal(A, F, C, Turno)
+    consumoHorizontal(A, F, C, Turno)
+    consumoVertical(A, F, C, Turno)
 
 game_over = False
 
@@ -288,6 +288,7 @@ while not game_over:
 	for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 (mouseX, mouseY) = pygame.mouse.get_pos()
                 (row, col) = boardPos (mouseX, mouseY)
@@ -295,10 +296,13 @@ while not game_over:
                 C=col
                 centerX = ((col) * 50)+25
                 centerY = ((row) * 50)+25
+
                 if Turno==1:
                     color=red
+
                 elif Turno==2:
                     color=white
+
                 if esValida(Tablero,Copia,F,C,Turno)==True:
                     pygame.draw.circle(window,color,(centerX,centerY),20)
                     consumo(Tablero, F, C, Turno)
@@ -325,8 +329,8 @@ while not game_over:
                 elif esValida(Tablero,Copia,F,C,Turno)==False:
                     print("La jugada introducida no es valida.")
                     print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
+                print(event)
                 pygame.display.update()
-
 
 	clock.tick(10)
 				
