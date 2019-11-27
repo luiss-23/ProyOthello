@@ -351,14 +351,14 @@ while not game_over:
 					for i in range(0,8):
 						for j in range(0,8):
 							if Tablero[i][j] == 1:
-								color == BLACK
+								color = BLACK
 								row = i 
 								col = j
 								centerX = ((col) * 100) + 150
 								centerY = ((row) * 100) + 150
 								pygame.draw.circle(window, color, (centerX,centerY), 40)
 							elif Tablero[i][j] == 2:
-								color == WHITE
+								color = WHITE
 								row = i 
 								col = j
 								centerX = ((col) * 100) + 150
