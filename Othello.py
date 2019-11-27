@@ -7,6 +7,7 @@ import random
 pygame.init()
 
 position = ()
+clock = pygame.time.Clock()
 
 #Tamano de la ventana de juego
 width = 1000
@@ -50,39 +51,43 @@ movimientos = 0
 
 #Funciones para poder jugar
 def boardPos(mouseX, mouseY):
-	#Numero de fila y columna dado por la posicion de click
-	if (mouseY < 200):
+	#Numero de fila dado por la posicion de click
+	if (100 < mouseY < 200):
 		row = 0 
-	elif (mouseY < 300):
+	elif (200 < mouseY < 300):
 		row = 1
-	elif (mouseY < 400):
+	elif (300 < mouseY < 400):
 		row = 2
-	elif (mouseY < 500):
+	elif (400 < mouseY < 500):
 		row = 3
-	elif (mouseY < 600):
+	elif (500 < mouseY < 600):
 		row = 4
-	elif (mouseY < 700):
+	elif (600 < mouseY < 700):
 		row = 5
-	elif (mouseY < 800):
+	elif (700 < mouseY < 800):
 		row = 6
-	elif (mouseY < 900):
+	elif (800 < mouseY < 900):
 		row = 7 
-	elif (mouseX < 200):
+
+	#Numero de columna dado por la posicion del click
+	if (100 < mouseX < 200):
 		col = 0
-	elif (mouseX < 300):
+	elif (200 < mouseX < 300):
 		col = 1
-	elif (mouseX < 400):
+	elif (300 < mouseX < 400):
 		col = 2
-	elif (mouseX < 500):
+	elif (400 < mouseX < 500):
 		col = 3
-	elif (mouseX < 600):
+	elif (500 < mouseX < 600):
 		col = 4
-	elif (mouseX < 700):
+	elif (600 < mouseX < 700):
 		col = 5
-	elif (mouseX < 800):
+	elif (700 < mouseX < 800):
 		col = 6
-	elif (mouseX < 900):
+	elif (800 < mouseX < 900):
 		col = 7 
+	else: 
+		pass
 
 	return (row, col)
 
@@ -279,9 +284,7 @@ nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
 
 
 #Eleccion del primer jugador
-jugadores = [nombreJugador1, nombreJugador2]
-nombreJugador1 = 1
-nombreJugador2 = 2
+jugadores = [1, 2]
 Turno = random.choice(jugadores)
 print( 'El primer jugador es: ' +str(Turno) )
 
@@ -345,17 +348,17 @@ while not game_over:
 							col = j
 							centerX = ((col) * 50) + 50
 							centerY = ((row) * 50) + 50
-							pygame.draw.circle(window, color, (centerX,centerY), 20)
+							pygame.draw.circle(window, color, (centerX,centerY), 40)
 						elif Tablero[i][j] == 2:
 							color == WHITE
 							row = i 
 							col = j
 							centerX = ((col) * 50) + 50
 							centerY = ((row) * 50) + 50
-							pygame.draw.circle(window, color, (centerX,centerY), 20)
+							pygame.draw.circle(window, color, (centerX,centerY), 40)
 						else: 
 							pass
 			else:
 				print('La jugada introducida no es valida, intente nuevamente')
-	print(event)
+	clock.tick(5)
 	pygame.display.update()
