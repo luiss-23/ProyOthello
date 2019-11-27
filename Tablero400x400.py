@@ -257,80 +257,101 @@ def quedanFichas(F:int,R:int)->bool:
     return quedan
 
 def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
-    consumoDiagonal(A, F, C, Turno)
-    consumoHorizontal(A, F, C, Turno)
-    consumoVertical(A, F, C, Turno)
+    consumoDiagonal(A, i, j, Turno)
+    consumoHorizontal(A, i, j, Turno)
+    consumoVertical(A, i, j, Turno)
 
+def QuedanJugadas(A:[int],B:[int],turno:int)->bool:
+    Quedan=False
+    for x in range(0,8):
+        for y in range (0,8):
+            if A[x][y]==0:
+                if esValida(A,B,x,y,turno):
+                    Quedan=True
+                else:
+                    pass
+            elif A[x][y]==1 or A[x][y]==2:
+                pass
+    return Quedan
+    
 game_over = False
 
-while not game_over:
+pygame.draw.line(window, (255,255,255),(50,400),(50,0),2)
+pygame.draw.line(window, (255,255,255),(100,400),(100,0),2)
+pygame.draw.line(window, (255,255,255),(150,400),(150,0),2)
+pygame.draw.line(window, (255,255,255),(200,400),(200,0),2)
+pygame.draw.line(window, (255,255,255),(250,400),(250,0),2)
+pygame.draw.line(window, (255,255,255),(300,400),(300,0),2)
+pygame.draw.line(window, (255,255,255),(350,400),(350,0),2)
+pygame.draw.line(window, (255,255,255),(0,50),(400,50),2)
+pygame.draw.line(window, (255,255,255),(0,100),(400,100),2)
+pygame.draw.line(window, (255,255,255),(0,150),(400,150),2)
+pygame.draw.line(window, (255,255,255),(0,200),(400,200),2)
+pygame.draw.line(window, (255,255,255),(0,250),(400,250),2)
+pygame.draw.line(window, (255,255,255),(0,300),(400,300),2)
+pygame.draw.line(window, (255,255,255),(0,350),(400,350),2)
+pygame.draw.circle(window,red,(175,225),20)
+pygame.draw.circle(window,red,(225,175),20)
+pygame.draw.circle(window,white,(175,175),20)
+pygame.draw.circle(window,white,(225,225),20)
 
-	pygame.draw.line(window, (255,255,255),(50,400),(50,0),2)
-	pygame.draw.line(window, (255,255,255),(100,400),(100,0),2)
-	pygame.draw.line(window, (255,255,255),(150,400),(150,0),2)
-	pygame.draw.line(window, (255,255,255),(200,400),(200,0),2)
-	pygame.draw.line(window, (255,255,255),(250,400),(250,0),2)
-	pygame.draw.line(window, (255,255,255),(300,400),(300,0),2)
-	pygame.draw.line(window, (255,255,255),(350,400),(350,0),2)
-	pygame.draw.line(window, (255,255,255),(0,50),(400,50),2)
-	pygame.draw.line(window, (255,255,255),(0,100),(400,100),2)
-	pygame.draw.line(window, (255,255,255),(0,150),(400,150),2)
-	pygame.draw.line(window, (255,255,255),(0,200),(400,200),2)
-	pygame.draw.line(window, (255,255,255),(0,250),(400,250),2)
-	pygame.draw.line(window, (255,255,255),(0,300),(400,300),2)
-	pygame.draw.line(window, (255,255,255),(0,350),(400,350),2)
-	pygame.draw.circle(window,red,(175,225),20)
-	pygame.draw.circle(window,red,(225,175),20)
-	pygame.draw.circle(window,white,(175,175),20)
-	pygame.draw.circle(window,white,(225,225),20)
-	
-	
+while not game_over:
 	for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                (mouseX, mouseY) = pygame.mouse.get_pos()
-                (row, col) = boardPos (mouseX, mouseY)
-                F=row
-                C=col
-                centerX = ((col) * 50)+25
-                centerY = ((row) * 50)+25
+            if quedanFichas(fichas, movimientos) == True and (QuedanJugadas(Tablero,Copia,1)==True or QuedanJugadas(Tablero,Copia,2)==True):
+                if QuedanJugadas(Tablero,Copia,Turno):
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        (mouseX, mouseY) = pygame.mouse.get_pos()
+                        (row, col) = boardPos (mouseX, mouseY)
+                        F=row
+                        C=col
+                        centerX = ((col) * 50)+25
+                        centerY = ((row) * 50)+25
 
-                if Turno==1:
-                    color=red
+                        if Turno==1:
+                            color=red
 
-                elif Turno==2:
-                    color=white
+                        elif Turno==2:
+                            color=white
 
-                if esValida(Tablero,Copia,F,C,Turno)==True:
-                    pygame.draw.circle(window,color,(centerX,centerY),20)
-                    consumo(Tablero, F, C, Turno)
-                    reflejarJugada(Tablero, F, C, Turno)
+                        if esValida(Tablero,Copia,F,C,Turno)==True:
+                                pygame.draw.circle(window,color,(centerX,centerY),20)
+                                consumo(Tablero, F, C, Turno)
+                                reflejarJugada(Tablero, F, C, Turno)
+                                Turno = cambiarJugador(Turno)
+                                print("El turno es del jugador:", Turno)
+                                for i in range (0,8):
+                                    for j in range(0,8):
+                                        if Tablero[i][j]==1:
+                                            color=red
+                                            row=i
+                                            col=j
+                                            centerX = ((col) * 50)+25
+                                            centerY = ((row) * 50)+25
+                                            pygame.draw.circle(window,color,(centerX,centerY),20)
+                                        elif Tablero[i][j]==2:
+                                            color=white
+                                            row=i
+                                            col=j
+                                            centerX = ((col) * 50)+25
+                                            centerY = ((row) * 50)+25
+                                            pygame.draw.circle(window,color,(centerX,centerY),20)
+                                        else: pass
+                        elif esValida(Tablero,Copia,F,C,Turno)==False:
+                            print("La jugada introducida no es valida.")
+                            print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
+                else: 
+                    Ext=Turno
                     Turno = cambiarJugador(Turno)
-                    print("El turno es del jugador:", Turno)
-                    for i in range (0,8):
-                        for j in range(0,8):
-                            if Tablero[i][j]==1:
-                                color=red
-                                row=i
-                                col=j
-                                centerX = ((col) * 50)+25
-                                centerY = ((row) * 50)+25
-                                pygame.draw.circle(window,color,(centerX,centerY),20)
-                            elif Tablero[i][j]==2:
-                                color=white
-                                row=i
-                                col=j
-                                centerX = ((col) * 50)+25
-                                centerY = ((row) * 50)+25
-                                pygame.draw.circle(window,color,(centerX,centerY),20)
-                            else: pass
-                elif esValida(Tablero,Copia,F,C,Turno)==False:
-                    print("La jugada introducida no es valida.")
-                    print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
-                print(event)
-                pygame.display.update()
+                    print("El jugador", Ext, "no pude hacer movimientos.")
+                    print("El turno es del jugador", Turno)            
+            else: 
+                print("Se termina el juego porque no se pueden colocar mas fichas")
+                sys.exit()
+                
+            pygame.display.update()
 
 	clock.tick(10)
 				

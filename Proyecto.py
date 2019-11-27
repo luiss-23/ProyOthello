@@ -6,11 +6,11 @@ import sys
 Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 2, 0, 0, 0],
-            [0, 0, 0, 2, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0] ]
+            [1, 0, 0, 0, 0, 0, 0, 0],
+            [2, 1, 1, 0, 0, 0, 0, 0],
+            [2, 2, 0, 0, 0, 0, 0, 0] ]
 
 Copia =   [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -219,26 +219,42 @@ def quedanFichas(F:int,R:int)->bool:
     return quedan
 
 def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
-    consumoDiagonal(A, F, C, Turno)
-    consumoHorizontal(A, F, C, Turno)
-    consumoVertical(A, F, C, Turno)
+    consumoDiagonal(A, i, j, Turno)
+    consumoHorizontal(A, i, j, Turno)
+    consumoVertical(A, i, j, Turno)
+
+def QuedanJugadas(A:[int],B:[int],turno:int)->bool:
+    Quedan=False
+    for x in range(0,8):
+        for y in range (0,8):
+            if A[x][y]==0:
+                if esValida(A,B,x,y,turno):
+                    Quedan=True
+                else:
+                    pass
+            elif A[x][y]==1 or A[x][y]==2:
+                pass
+    return Quedan
 
 Turno = random.choice(Jugadores)
 print('El primer jugador es: ' +str(Turno))
 
-while quedanFichas(fichas, movimientos) == True:
-    F = int(input('Introduza la fila donde se hara el movimiento: '))
-    C = int(input('Introduza la columna donde se hara el movimiento: '))
-    if esValida(Tablero,Copia,F,C,Turno):
-        consumo(Tablero, F, C, Turno)
-        reflejarJugada(Tablero, F, C, Turno)
-        for i in range(len(Tablero)):
-            for j in range(len(Tablero[i])):
-                print(Tablero[i][j], end=' ')
-            print()
-        Turno = cambiarJugador(Turno)
-        print('El siguiente jugador es: ' +str(Turno))
-        movimientos = movimientos + 1
-    else:
-        print("La jugada introducida no es valida.")
-        print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
+while quedanFichas(fichas, movimientos) == True and (QuedanJugadas(Tablero,Copia,1)==True or QuedanJugadas(Tablero,Copia,2)==True):
+    if QuedanJugadas(Tablero,Copia,Turno):
+        F = int(input('Introduza la fila donde se hara el movimiento: '))
+        C = int(input('Introduza la columna donde se hara el movimiento: '))
+        if esValida(Tablero,Copia,F,C,Turno):
+            consumo(Tablero, F, C, Turno)
+            reflejarJugada(Tablero, F, C, Turno)
+            for i in range(len(Tablero)):
+                for j in range(len(Tablero[i])):
+                    print(Tablero[i][j], end=' ')
+                print()
+            Turno = cambiarJugador(Turno)
+            print('El siguiente jugador es: ' +str(Turno))
+            movimientos = movimientos + 1
+        else:
+            print("La jugada introducida no es valida.")
+            print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
+    else: Turno = cambiarJugador(Turno)
+print("Se termina el juego porque no se pueden colocar mas fichas")
