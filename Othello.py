@@ -2,12 +2,12 @@ import pygame
 import sys
 import random
 
+clock = pygame.time.Clock() #Para ver los eventos a velocidad normal
 
 #Inicializacion de pygame
 pygame.init()
 
 position = ()
-clock = pygame.time.Clock()
 
 #Tamano de la ventana de juego
 width = 1000
@@ -23,7 +23,6 @@ FOREST_GREEN = (34, 139, 34)
 pygame.display.set_caption("Othello")
 #Inicializacion de la ventana de juego
 window = pygame.display.set_mode((width, height))
-
 
 #Matriz asociada al tablero de juego
 Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
@@ -52,43 +51,48 @@ movimientos = 0
 #Funciones para poder jugar
 def boardPos(mouseX, mouseY):
 	#Numero de fila dado por la posicion de click
-	if (100 < mouseY < 200):
-		row = 0 
-	elif (200 < mouseY < 300):
+	if (mouseY < 100):
+		row = -1 
+	elif (mouseY < 200):
+		row = 0
+	elif (mouseY < 300):
 		row = 1
-	elif (300 < mouseY < 400):
+	elif (mouseY < 400):
 		row = 2
-	elif (400 < mouseY < 500):
+	elif (mouseY < 500):
 		row = 3
-	elif (500 < mouseY < 600):
+	elif (mouseY < 600):
 		row = 4
-	elif (600 < mouseY < 700):
+	elif (mouseY < 700):
 		row = 5
-	elif (700 < mouseY < 800):
+	elif (mouseY < 800):
 		row = 6
-	elif (800 < mouseY < 900):
+	elif (mouseY < 900):
 		row = 7 
+	elif (mouseY < 1000):
+		row = -1
 
-	#Numero de columna dado por la posicion del click
-	if (100 < mouseX < 200):
+	#Numero de columna dado por la posicion de click
+	if (mouseX < 100):
+		col = -1
+	elif (mouseX < 200):
 		col = 0
-	elif (200 < mouseX < 300):
+	elif (mouseX < 300):
 		col = 1
-	elif (300 < mouseX < 400):
+	elif (mouseX < 400):
 		col = 2
-	elif (400 < mouseX < 500):
+	elif (mouseX < 500):
 		col = 3
-	elif (500 < mouseX < 600):
+	elif (mouseX < 600):
 		col = 4
-	elif (600 < mouseX < 700):
+	elif (mouseX < 700):
 		col = 5
-	elif (700 < mouseX < 800):
+	elif (mouseX < 800):
 		col = 6
-	elif (800 < mouseX < 900):
+	elif (mouseX < 900):
 		col = 7 
-	else: 
-		pass
-
+	elif (mouseX<1000):
+		col = -1
 	return (row, col)
 
 def esValida(A:[int], B:[int], i:int, j:int, turneto:int) -> bool:
@@ -325,40 +329,44 @@ while not game_over:
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			(mouseX, mouseY) = pygame.mouse.get_pos()
 			(row, col) = boardPos(mouseX, mouseY)
-			F, C = row, col 
-			centerX = ((col) * 50) + 50
-			centerY = ((row) * 50) + 50
+			if row == -1 or col == -1:
+				print("Debe seleccionar una casilla dentro del tablero")
+			elif row != -1 and col != -1:
+				F, C = row, col 
+				centerX = ((col) * 100) + 50
+				centerY = ((row) * 100) + 50
 
-			if Turno == 1:
-				color = BLACK
-			elif Turno == 2:
-				color = WHITE
+				if Turno == 1:
+					color = BLACK
+				elif Turno == 2:
+					color = WHITE
 
-			if esValida(Tablero, Copia, F, C, Turno):
-				pygame.draw.circle(window, color, (centerX,centerY), 40)
-				consumo(Tablero, F, C, Turno)
-				reflejarJugada(Tablero, F, C, Turno)
-				Turno = cambiarJugador(Turno)
-				print('El siguiente jugador es: ' +str(Turno))
-				for i in range(0,8):
-					for j in range(0,8):
-						if Tablero[i][j] == 1:
-							color == BLACK
-							row = i 
-							col = j
-							centerX = ((col) * 50) + 50
-							centerY = ((row) * 50) + 50
-							pygame.draw.circle(window, color, (centerX,centerY), 40)
-						elif Tablero[i][j] == 2:
-							color == WHITE
-							row = i 
-							col = j
-							centerX = ((col) * 50) + 50
-							centerY = ((row) * 50) + 50
-							pygame.draw.circle(window, color, (centerX,centerY), 40)
-						else: 
-							pass
+				if esValida(Tablero, Copia, F, C, Turno):
+					pygame.draw.circle(window, color, (centerX,centerY), 40)
+					consumo(Tablero, F, C, Turno)
+					reflejarJugada(Tablero, F, C, Turno)
+					Turno = cambiarJugador(Turno)
+					print('El siguiente jugador es: ' +str(Turno))
+					for i in range(0,8):
+						for j in range(0,8):
+							if Tablero[i][j] == 1:
+								color == BLACK
+								row = i 
+								col = j
+								centerX = ((col) * 100) + 50
+								centerY = ((row) * 100) + 50
+								pygame.draw.circle(window, color, (centerX,centerY), 40)
+							elif Tablero[i][j] == 2:
+								color == WHITE
+								row = i 
+								col = j
+								centerX = ((col) * 100) + 50
+								centerY = ((row) * 100) + 50
+								pygame.draw.circle(window, color, (centerX,centerY), 40)
+							else: 
+								pass
 			else:
 				print('La jugada introducida no es valida, intente nuevamente')
+			print(event)
+			pygame.display.update()
 	clock.tick(5)
-	pygame.display.update()
