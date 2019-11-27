@@ -104,7 +104,7 @@ def esValida(A:[int], B:[int], i:int, j:int, turneto:int) -> bool:
 			for b in range (0,8):
 				B[a][b] = A[a][b]
 		consumo(B, i, j,turneto)
-		reflejarJugada(B,i,j,turneto)
+		reflejarJugada(B, i, j, turneto)
 		for a in range (0,8):
 			for b in range (0,8):
 				if a == i and b == j:
@@ -270,10 +270,10 @@ def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
 		pass
 
 def quedanFichas(F:int,R:int)->bool:
-	if F-R==0:
-		quedan=False
-	elif F-R!=0:
-		quedan=True
+	if F - R == 0:
+		quedan = False
+	elif F - R != 0:
+		quedan = True
 	return quedan
 
 def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
@@ -333,8 +333,8 @@ while not game_over:
 				print("Debe seleccionar una casilla dentro del tablero")
 			elif row != -1 and col != -1:
 				F, C = row, col 
-				centerX = ((col) * 100) + 50
-				centerY = ((row) * 100) + 50
+				centerX = ((col) * 100) + 150
+				centerY = ((row) * 100) + 150
 
 				if Turno == 1:
 					color = BLACK
@@ -353,20 +353,20 @@ while not game_over:
 								color == BLACK
 								row = i 
 								col = j
-								centerX = ((col) * 100) + 50
-								centerY = ((row) * 100) + 50
+								centerX = ((col) * 100) + 150
+								centerY = ((row) * 100) + 150
 								pygame.draw.circle(window, color, (centerX,centerY), 40)
 							elif Tablero[i][j] == 2:
 								color == WHITE
 								row = i 
 								col = j
-								centerX = ((col) * 100) + 50
-								centerY = ((row) * 100) + 50
+								centerX = ((col) * 100) + 150
+								centerY = ((row) * 100) + 150
 								pygame.draw.circle(window, color, (centerX,centerY), 40)
 							else: 
 								pass
 			else:
 				print('La jugada introducida no es valida, intente nuevamente')
-			print(event)
 			pygame.display.update()
+
 	clock.tick(5)
