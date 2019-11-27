@@ -294,32 +294,33 @@ print( 'El primer jugador es: ' +str(Turno) )
 
 game_over = False
 
+#Dibujo de fondo del tablero
+pygame.draw.rect(window, FOREST_GREEN, (100,100, 800,800))
+
+#Dibujo de lineas del tablero, horizontales y verticales
+pygame.draw.line(window, (0,0,0), (200,900), (200,100), 2)
+pygame.draw.line(window, (0,0,0), (300,900), (300,100), 2)
+pygame.draw.line(window, (0,0,0), (400,900), (400,100), 2)
+pygame.draw.line(window, (0,0,0), (500,900), (500,100), 2)
+pygame.draw.line(window, (0,0,0), (600,900), (600,100), 2)
+pygame.draw.line(window, (0,0,0), (700,900), (700,100), 2)
+pygame.draw.line(window, (0,0,0), (800,900), (800,100), 2)
+
+pygame.draw.line(window, (0,0,0), (100,200), (900,200), 2)
+pygame.draw.line(window, (0,0,0), (100,300), (900,300), 2)
+pygame.draw.line(window, (0,0,0), (100,400), (900,400), 2)
+pygame.draw.line(window, (0,0,0), (100,500), (900,500), 2)
+pygame.draw.line(window, (0,0,0), (100,600), (900,600), 2)
+pygame.draw.line(window, (0,0,0), (100,700), (900,700), 2)
+pygame.draw.line(window, (0,0,0), (100,800), (900,800), 2)
+
+#Dibujo de las fichas iniciales del juego
+pygame.draw.circle(window, WHITE, (450,450), 40)
+pygame.draw.circle(window, WHITE, (550,550), 40)
+pygame.draw.circle(window, BLACK, (450,550), 40)
+pygame.draw.circle(window, BLACK, (550,450), 40)
+
 while not game_over:
-	#Dibujo de fondo del tablero
-	pygame.draw.rect(window, FOREST_GREEN, (100,100, 800,800))
-
-	#Dibujo de lineas del tablero, horizontales y verticales
-	pygame.draw.line(window, (0,0,0), (200,900), (200,100), 2)
-	pygame.draw.line(window, (0,0,0), (300,900), (300,100), 2)
-	pygame.draw.line(window, (0,0,0), (400,900), (400,100), 2)
-	pygame.draw.line(window, (0,0,0), (500,900), (500,100), 2)
-	pygame.draw.line(window, (0,0,0), (600,900), (600,100), 2)
-	pygame.draw.line(window, (0,0,0), (700,900), (700,100), 2)
-	pygame.draw.line(window, (0,0,0), (800,900), (800,100), 2)
-
-	pygame.draw.line(window, (0,0,0), (100,200), (900,200), 2)
-	pygame.draw.line(window, (0,0,0), (100,300), (900,300), 2)
-	pygame.draw.line(window, (0,0,0), (100,400), (900,400), 2)
-	pygame.draw.line(window, (0,0,0), (100,500), (900,500), 2)
-	pygame.draw.line(window, (0,0,0), (100,600), (900,600), 2)
-	pygame.draw.line(window, (0,0,0), (100,700), (900,700), 2)
-	pygame.draw.line(window, (0,0,0), (100,800), (900,800), 2)
-
-	#Dibujo de las fichas iniciales del juego
-	pygame.draw.circle(window, WHITE, (450,450), 40)
-	pygame.draw.circle(window, WHITE, (550,550), 40)
-	pygame.draw.circle(window, BLACK, (450,550), 40)
-	pygame.draw.circle(window, BLACK, (550,450), 40)
 
 	for event in pygame.event.get():
 
