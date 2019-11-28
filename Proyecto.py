@@ -6,11 +6,11 @@ import sys
 Tablero = [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 0, 1, 2, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 0, 0, 0, 0, 0, 0, 0],
-            [2, 1, 1, 0, 0, 0, 0, 0],
-            [2, 2, 0, 0, 0, 0, 0, 0] ]
+            [0, 0, 0, 0, 0, 0, 0, 0] ]
 
 Copia =   [ [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,6 +34,8 @@ nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
 #Variables
 fichas = 60
 movimientos = 0 
+puntaje_1 = 0
+puntaje_2 = 0
 
 #Eleccion del primer jugador
 Jugadores = [1,2]
@@ -236,6 +238,30 @@ def QuedanJugadas(A:[int],B:[int],turno:int)->bool:
                 pass
     return Quedan
 
+def puntaje1(A: [int], p1:int, i: int, j: int) -> int:
+    for i in range(0,8):
+        for j in range(0,8):
+                if A[i][j] == 0:
+                    pass
+                elif A[i][j] == 2:
+                    pass
+                elif A[i][j] == 1:
+                    p1 = p1 + 1
+
+    return p1
+
+def puntaje2(A: [int], p2:int, i: int, j: int) -> int:
+    for i in range(0,8):
+        for j in range(0,8):
+                if A[i][j] == 0:
+                    pass
+                elif A[i][j] == 1:
+                    pass
+                elif A[i][j] == 2:
+                    p2 = p2 + 1
+
+    return p2
+
 Turno = random.choice(Jugadores)
 print('El primer jugador es: ' +str(Turno))
 
@@ -246,10 +272,14 @@ while quedanFichas(fichas, movimientos) and (QuedanJugadas(Tablero,Copia,1) or Q
         if esValida(Tablero,Copia,F,C,Turno):
             consumo(Tablero, F, C, Turno)
             reflejarJugada(Tablero, F, C, Turno)
+            puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
+            puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
             for i in range(len(Tablero)):
                 for j in range(len(Tablero[i])):
                     print(Tablero[i][j], end=' ')
                 print()
+            print('El jugador 1, lleva: ' +str(puntaje_1))
+            print('El jugador 2, lleva: ' +str(puntaje_2))
             Turno = cambiarJugador(Turno)
             print('El siguiente jugador es: ' +str(Turno))
             movimientos = movimientos + 1
