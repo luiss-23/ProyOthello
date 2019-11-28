@@ -219,9 +219,9 @@ def quedanFichas(F:int,R:int)->bool:
     return quedan
 
 def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
-    consumoDiagonal(A, i, j, Turno)
-    consumoHorizontal(A, i, j, Turno)
-    consumoVertical(A, i, j, Turno)
+    consumoDiagonal(A, i, j, turno)
+    consumoHorizontal(A, i, j, turno)
+    consumoVertical(A, i, j, turno)
 
 def QuedanJugadas(A:[int],B:[int],turno:int)->bool:
     Quedan = False
@@ -239,7 +239,7 @@ def QuedanJugadas(A:[int],B:[int],turno:int)->bool:
 Turno = random.choice(Jugadores)
 print('El primer jugador es: ' +str(Turno))
 
-while quedanFichas(fichas, movimientos):
+while quedanFichas(fichas, movimientos) and (QuedanJugadas(Tablero,Copia,1) or QuedanJugadas(Tablero,Copia,2)):
     if  QuedanJugadas(Tablero, Copia, Turno) == True :
         F = int(input('Introduza la fila donde se hara el movimiento: '))
         C = int(input('Introduza la columna donde se hara el movimiento: '))
@@ -257,5 +257,10 @@ while quedanFichas(fichas, movimientos):
             print("La jugada introducida no es valida.")
             print("Para que una jugada sea valida, la casilla no debe estar ocupada por una ficha y se deben consumir almenos una ficha.")
     else:
+        print("EL jugador", Turno,"no tiene jugadas disponibles.")
         Turno = cambiarJugador(Turno)
         print('El turno es para el jugador: ' +str(Turno))
+if QuedanJugadas(Tablero,Copia,1)==False and QuedanJugadas(Tablero,Copia,2)==False:
+    print("El juego ha acabado porque ningun jugador tiene movimientos.")
+elif quedanFichas(fichas,movimientos)==False:
+    print("El juego ha terminado, no quedan fichas para jugar en el tablero.")
