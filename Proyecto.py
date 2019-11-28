@@ -280,6 +280,8 @@ while quedanFichas(fichas, movimientos) and (QuedanJugadas(Tablero,Copia,1) or Q
                 print()
             print('El jugador 1, lleva: ' +str(puntaje_1))
             print('El jugador 2, lleva: ' +str(puntaje_2))
+            puntaje_1 = 0
+            puntaje_2 = 0 
             Turno = cambiarJugador(Turno)
             print('El siguiente jugador es: ' +str(Turno))
             movimientos = movimientos + 1

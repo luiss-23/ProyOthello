@@ -47,6 +47,8 @@ Copia =   [ [0, 0, 0, 0, 0, 0, 0, 0],
 #Fichas y movimientos
 fichas = 60
 movimientos = 0
+puntaje_1 = 0
+puntaje_2 = 0 
 
 #Funciones para poder jugar
 def boardPos(mouseX, mouseY):
@@ -294,6 +296,30 @@ def QuedanJugadas(A:[int],B:[int],turno:int) -> bool:
 				pass
 	return Quedan
 
+def puntaje1(A: [int], p1:int, i: int, j: int) -> int:
+    for i in range(0,8):
+        for j in range(0,8):
+                if A[i][j] == 0:
+                    pass
+                elif A[i][j] == 2:
+                    pass
+                elif A[i][j] == 1:
+                    p1 = p1 + 1
+
+    return p1
+
+def puntaje2(A: [int], p2:int, i: int, j: int) -> int:
+    for i in range(0,8):
+        for j in range(0,8):
+                if A[i][j] == 0:
+                    pass
+                elif A[i][j] == 1:
+                    pass
+                elif A[i][j] == 2:
+                    p2 = p2 + 1
+
+    return p2
+
 
 #Nombres de Jugadores
 nombreJugador1 = input("Ingrese el nombre del jugador 1: ")
@@ -361,6 +387,12 @@ while not game_over:
 						pygame.draw.circle(window, color, (centerX,centerY), 40)
 						consumo(Tablero, F, C, Turno)
 						reflejarJugada(Tablero, F, C, Turno)
+						puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
+						puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+						print('El jugador 1 lleva: ' +str(puntaje_1))
+						print('El jugador 2 lleva: ' +str(puntaje_2))
+						puntaje_1 = 0
+						puntaje_2 = 0 
 						Turno = cambiarJugador(Turno)
 						print('El siguiente jugador es: ' +str(Turno))
 						for i in range(0,8):
@@ -389,7 +421,12 @@ while not game_over:
 				print('El jugador: ' +str(ant) +' no tiene jugadas, el turno del jugador: ' +str(Turno))
 		if quedanFichas(fichas, movimientos) == False:
 			print('No quedan fichas para jugar, se termina el juego')
-			sys.exit()
+			puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
+			puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+			if puntaje_1 > puntaje2:
+				print('El ganador es: 1. FELICIDADES')
+			else:
+				print('El ganador es: 2. FELICIDADES')
 		elif ( QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False ):
 			print('El juego ha acabado porque ningun jugador tiene movimientos.')
 			sys.exit()
