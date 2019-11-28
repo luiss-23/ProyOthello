@@ -282,17 +282,17 @@ def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
 	consumoVertical(A, i, j, turno)
 
 def QuedanJugadas(A:[int],B:[int],turno:int) -> bool:
-    Quedan = False
-    for i in range(0,8):
-        for j in range (0,8):
-            if A[i][j] == 0:
-                if esValida(A, B, i, j, turno):
-                    Quedan = True
-                else:
-                    pass
-            elif A[i][j] == 1 or A[i][j] == 2:
-                pass
-    return Quedan
+	Quedan = False
+	for i in range(0,8):
+		for j in range (0,8):
+			if A[i][j] == 0:
+				if esValida(A, B, i, j, turno):
+					Quedan = True
+				else:
+					pass
+			elif A[i][j] == 1 or A[i][j] == 2:
+				pass
+	return Quedan
 
 
 #Nombres de Jugadores
@@ -300,7 +300,7 @@ nombreJugador1 = input("Ingrese el nombre del jugador 1: ")
 nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
 
 
-#Eleccion del primer jugador
+#Eleccion del primer y segundo jugador 
 jugadores = [1, 2]
 Turno = random.choice(jugadores)
 print( 'El primer jugador es: ' +str(Turno) )
@@ -387,8 +387,11 @@ while not game_over:
 				ant = Turno
 				Turno = cambiarJugador(Turno)
 				print('El jugador: ' +str(ant) +' no tiene jugadas, el turno del jugador: ' +str(Turno))
-		else: 
+		if quedanFichas(fichas, movimientos) == False:
 			print('No quedan fichas para jugar, se termina el juego')
+			sys.exit()
+		elif ( QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False ):
+			print('El juego ha acabado porque ningun jugador tiene movimientos.')
 			sys.exit()
 
 		pygame.display.update()
