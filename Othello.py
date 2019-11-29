@@ -328,8 +328,8 @@ nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
 
 #Eleccion del primer y segundo jugador 
 jugadores = [1, 2]
-Turno = random.choice(jugadores)
-print( 'El primer jugador es: ' +str(Turno) )
+Turno = 1
+print( 'El primer jugador es (fichas negras): ' +str(random.choice([nombreJugador1, nombreJugador2])) )
 
 game_over = False
 
@@ -366,7 +366,7 @@ while not game_over:
 		if event.type == pygame.QUIT:
 			sys.exit()
 
-		if quedanFichas(fichas, movimientos) == True:
+		if ( quedanFichas(fichas, movimientos) == True and (QuedanJugadas(Tablero, Copia, 1) == True or QuedanJugadas(Tablero, Copia, 2) == True) ):
 			if QuedanJugadas(Tablero, Copia, Turno) == True:
 				if event.type == pygame.MOUSEBUTTONDOWN:
 					(mouseX, mouseY) = pygame.mouse.get_pos()
@@ -418,8 +418,8 @@ while not game_over:
 			else:
 				ant = Turno
 				Turno = cambiarJugador(Turno)
-				print('El jugador: ' +str(ant) +' no tiene jugadas, el turno del jugador: ' +str(Turno))
-		if quedanFichas(fichas, movimientos) == False:
+				print('El jugador: ' +str(ant) +' no tiene jugadas, el turno es del jugador: ' +str(Turno))
+		else:
 			print('No quedan fichas para jugar, se termina el juego')
 			puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
 			puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
@@ -427,8 +427,15 @@ while not game_over:
 				print('El ganador es: 1. FELICIDADES')
 			else:
 				print('El ganador es: 2. FELICIDADES')
-		elif ( QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False ):
+			sys.exit()
+		if ( QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False ):
 			print('El juego ha acabado porque ningun jugador tiene movimientos.')
+			puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
+			puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+			if puntaje_1 > puntaje_2:
+				print('El ganador es: 1. FELICIDADES')
+			else:
+				print('El ganador es: 2. FELICIDADES')
 			sys.exit()
 
 		pygame.display.update()
