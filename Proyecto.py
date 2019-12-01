@@ -26,20 +26,6 @@ for i in range(len(Tablero)):
         print(Tablero[i][j], end=' ')
     print()
 
-
-#Nombres Jugadores
-nombreJugador1 = input("Ingrese el nombre del jugador 1: ")
-nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
-
-#Variables
-fichas = 60
-movimientos = 0 
-puntaje_1 = 0
-puntaje_2 = 0
-
-#Eleccion del primer jugador
-Jugadores = [1,2]
-
 def esValida(A:[int],B:[int],i:int,j:int,turneto:int)->bool:
     Valida = False
     if A[i][j] != 0:
@@ -262,8 +248,20 @@ def puntaje2(A: [int], p2:int, i: int, j: int) -> int:
 
     return p2
 
-Turno = random.choice(Jugadores)
-print('El primer jugador es: ' +str(Turno))
+#Nombres Jugadores
+nombreJugador1 = input("Ingrese el nombre del jugador 1: ")
+nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
+
+#Variables
+fichas = 60
+movimientos = 0 
+puntaje_1 = 0
+puntaje_2 = 0
+
+#Eleccion del primer jugador
+Jugadores = [1,2]
+Turno = 1
+print('El primer jugador es: ' +str(random.choice([nombreJugador1, nombreJugador2])))
 
 while quedanFichas(fichas, movimientos) and (QuedanJugadas(Tablero,Copia,1) or QuedanJugadas(Tablero,Copia,2)):
     if  QuedanJugadas(Tablero, Copia, Turno) == True :
