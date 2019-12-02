@@ -1,13 +1,12 @@
 def QuedanJugadas(A:[int],B:[int],turno:int)->bool:
-    Quedan=False
-    for x in range(0,8):
-        for y in range (0,8):
-            if A[x][y]==0:
-                esValida(A,B,x,y,turno)
-                if esValida(A,B,x,y,turno):
-                    Quedan=True
+    Quedan = False
+    for i in range(0,8):
+        for j in range (0,8):
+            if A[i][j] == 0:
+                if esValida(A, B, i, j, turno):
+                    Quedan = True
                 else:
                     pass
-            elif A[x][y]==1 or A[x][y]==2:
+            elif A[i][j] == 1 or A[i][j] == 2:
                 pass
     return Quedan
