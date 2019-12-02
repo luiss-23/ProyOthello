@@ -26,6 +26,7 @@ for i in range(len(Tablero)):
         print(Tablero[i][j], end=' ')
     print()
 
+#Funcion esValida: verifica las jugadas que se realizaran
 def esValida(A:[int],B:[int],i:int,j:int,turneto:int)->bool:
     Valida = False
     if A[i][j] != 0:
@@ -34,8 +35,8 @@ def esValida(A:[int],B:[int],i:int,j:int,turneto:int)->bool:
         for a in range(0,8):
             for b in range(0,8):
                 B[a][b] = A[a][b]
-        consumo(B, i, j,turneto)
-        reflejarJugada(B,i,j,turneto)
+        consumo(B, i, j, turneto)
+        reflejarJugada(B, i, j, turneto)
         for a in range(0,8):
             for b in range (0,8):
                 if a == i and b == j:
@@ -47,6 +48,7 @@ def esValida(A:[int],B:[int],i:int,j:int,turneto:int)->bool:
                         Valida = True 
     return Valida
 
+#Procedimiento cambiar jugador: cambia al jugador de turno por el siguiente
 def cambiarJugador(turn:int) -> 'void':
     if turn == 1:
         turn = 2
@@ -54,10 +56,11 @@ def cambiarJugador(turn:int) -> 'void':
         turn = 1
     return turn
 
-
+#Procedimiento reflejar jugada: Pondra la ficha en el lugar seleccionado
 def reflejarJugada( A: [int], i: int, j: int, turno: int) -> 'void':
     A[i][j] = turno
 
+#Procedmimiento consumo vertical: cambiara las fichas que se deban en una columna
 def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
     k = int
     k = i
@@ -87,6 +90,7 @@ def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
     elif i == 0:
         pass 
 
+#Procedimiento consumo horizontal: cambiara las fichas que se deban en una fila 
 def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
     k = int
     k = j
@@ -116,6 +120,7 @@ def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
     elif j == 0:
         pass 
 
+#Procedimiento consumo diagonal: cambiara las fichas que se deban en las 4 diagonales
 def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
     k = i
     l = j
@@ -199,6 +204,7 @@ def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
     elif i == 0 or j == 0:
         pass
 
+#Funcion quedan fichas: verificara que queden fichas para poder jugar
 def quedanFichas(F:int,R:int)->bool:
     if F - R == 0:
         quedan = False
@@ -206,17 +212,19 @@ def quedanFichas(F:int,R:int)->bool:
         quedan = True
     return quedan
 
+#Procedimiento consumo: Union de los tres procedimientos de consumo
 def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
     consumoDiagonal(A, i, j, turno)
     consumoHorizontal(A, i, j, turno)
     consumoVertical(A, i, j, turno)
 
+#Funcion quedan jugadas: verifica que el jugador de turno tenga jugadas para hacer 
 def QuedanJugadas(A:[int],B:[int],turno:int)->bool:
     Quedan = False
     for i in range(0,8):
         for j in range (0,8):
             if A[i][j] == 0:
-                if esValida(A,B,i,j,turno):
+                if esValida(A, B, i, j, turno):
                     Quedan = True
                 else:
                     pass
@@ -224,6 +232,7 @@ def QuedanJugadas(A:[int],B:[int],turno:int)->bool:
                 pass
     return Quedan
 
+#Funcion puntaje 1: lleva los puntos del jugador 1
 def puntaje1(A: [int], p1:int, i: int, j: int) -> int:
     for i in range(0,8):
         for j in range(0,8):
@@ -236,6 +245,7 @@ def puntaje1(A: [int], p1:int, i: int, j: int) -> int:
 
     return p1
 
+#Funcion puntaje 2: lleva los puntos del jugador 2
 def puntaje2(A: [int], p2:int, i: int, j: int) -> int:
     for i in range(0,8):
         for j in range(0,8):
@@ -263,7 +273,8 @@ Jugadores = [1,2]
 Turno = 1
 print('El primer jugador es: ' +str(random.choice([nombreJugador1, nombreJugador2])))
 
-while quedanFichas(fichas, movimientos) and (QuedanJugadas(Tablero,Copia,1) or QuedanJugadas(Tablero,Copia,2)):
+#Ciclo de juego
+while quedanFichas(fichas, movimientos) == True and (QuedanJugadas(Tablero,Copia,1) == True or QuedanJugadas(Tablero,Copia,2) == True):
     if  QuedanJugadas(Tablero, Copia, Turno) == True :
         F = int(input('Introduza la fila donde se hara el movimiento: '))
         C = int(input('Introduza la columna donde se hara el movimiento: '))
@@ -290,7 +301,25 @@ while quedanFichas(fichas, movimientos) and (QuedanJugadas(Tablero,Copia,1) or Q
         print("EL jugador", Turno,"no tiene jugadas disponibles.")
         Turno = cambiarJugador(Turno)
         print('El turno es para el jugador: ' +str(Turno))
-if QuedanJugadas(Tablero,Copia,1)==False and QuedanJugadas(Tablero,Copia,2)==False:
+if QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False:
     print("El juego ha acabado porque ningun jugador tiene movimientos.")
-elif quedanFichas(fichas,movimientos)==False:
+    print('El juego ha acabado porque ningun jugador tiene movimientos.')
+	puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
+	puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+	print('El puntaje del jugador 1 es: ' +str(puntaje_1))
+	print('El puntaje del jugador 2 es: ' +str(puntaje_2))
+	if puntaje_1 > puntaje_2:
+		print('El ganador es: 1. FELICIDADES')
+	else:
+		print('El ganador es: 2. FELICIDADES')
+elif quedanFichas(fichas,movimientos) == False:
     print("El juego ha terminado, no quedan fichas para jugar en el tablero.")
+    print('No quedan fichas para jugar, se termina el juego')
+	puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
+	puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+	print('El puntaje del jugador 1 es: ' +str(puntaje_1))
+	print('El puntaje del jugador 2 es: ' +str(puntaje_2))
+	if puntaje_1 > puntaje2:
+		print('El ganador es: 1. FELICIDADES')
+	else:
+		print('El ganador es: 2. FELICIDADES')
