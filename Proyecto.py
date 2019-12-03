@@ -1,3 +1,12 @@
+"""
+Othello.py
+
+Autores: 
+   Luis Carlos Blanco, 17-10066
+   Gabriel Alejandro Chaurio, 17-10126
+
+Ultima modificacion: 2/12/2019
+"""
 import random 
 import sys
 
