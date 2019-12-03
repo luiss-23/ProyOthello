@@ -21,6 +21,7 @@ FOREST_GREEN = (34, 139, 34)
 
 #Nombre de la ventana de juego
 pygame.display.set_caption("Othello")
+
 #Inicializacion de la ventana de juego
 window = pygame.display.set_mode((width, height))
 
@@ -97,6 +98,7 @@ def boardPos(mouseX, mouseY):
 		col = -1
 	return (row, col)
 
+#Funcion esValida: verifica las jugadas que se realizaran
 def esValida(A:[int], B:[int], i:int, j:int, turneto:int) -> bool:
 	Valida = False
 	if A[i][j] != 0:
@@ -118,6 +120,7 @@ def esValida(A:[int], B:[int], i:int, j:int, turneto:int) -> bool:
 						Valida = True 
 	return Valida
 
+#Procedimiento cambiar jugador: cambia al jugador de turno por el siguiente
 def cambiarJugador(turn:int) -> 'void':
 	if turn == 1:
 		turn = 2
@@ -125,9 +128,11 @@ def cambiarJugador(turn:int) -> 'void':
 		turn = 1
 	return turn
 
+#Procedimiento reflejar jugada: Pondra la ficha en el lugar seleccionado
 def reflejarJugada( A: [int], i: int, j: int, turno: int) -> 'void':
 	A[i][j] = turno
 
+#Procedmimiento consumo vertical: cambiara las fichas que se deban en una columna
 def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
 	k = int
 	k = i
@@ -158,6 +163,7 @@ def consumoVertical(A:[int], i:int, j:int, turno:int) -> 'void':
 	elif i == 0:
 		pass 
 
+#Procedimiento consumo horizontal: cambiara las fichas que se deban en una fila 
 def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
 	k = int
 	k = j
@@ -188,6 +194,7 @@ def consumoHorizontal(A:[int], i:int, j:int, turno:int) -> 'void':
 	elif j == 0:
 		pass 
 
+#Procedimiento consumo diagonal: cambiara las fichas que se deban en las 4 diagonales
 def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
 	k = i
 	l = j
@@ -271,6 +278,7 @@ def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
 	elif i == 0 or j == 0:
 		pass
 
+#Funcion quedan fichas: verificara que queden fichas para poder jugar
 def quedanFichas(F:int,R:int)->bool:
 	if F - R == 0:
 		quedan = False
@@ -278,11 +286,13 @@ def quedanFichas(F:int,R:int)->bool:
 		quedan = True
 	return quedan
 
+#Procedimiento consumo: Union de los tres procedimientos de consumo
 def consumo(A:[int], i:int, j:int, turno:int) -> 'void':
 	consumoDiagonal(A, i, j, turno)
 	consumoHorizontal(A, i, j, turno)
 	consumoVertical(A, i, j, turno)
 
+#Funcion quedan jugadas: verifica que el jugador de turno tenga jugadas para hacer
 def QuedanJugadas(A:[int],B:[int],turno:int) -> bool:
 	Quedan = False
 	for i in range(0,8):
@@ -296,6 +306,7 @@ def QuedanJugadas(A:[int],B:[int],turno:int) -> bool:
 				pass
 	return Quedan
 
+#Funcion puntaje 1: lleva los puntos del jugador 1
 def puntaje1(A: [int], p1:int, i: int, j: int) -> int:
     for i in range(0,8):
         for j in range(0,8):
@@ -308,6 +319,7 @@ def puntaje1(A: [int], p1:int, i: int, j: int) -> int:
 
     return p1
 
+#Funcion puntaje 2: lleva los puntos del jugador 2
 def puntaje2(A: [int], p2:int, i: int, j: int) -> int:
     for i in range(0,8):
         for j in range(0,8):
@@ -328,8 +340,8 @@ nombreJugador2 = input("Ingrese el nombre del jugador 2: ")
 
 #Eleccion del primer y segundo jugador 
 jugadores = [1, 2]
-Turno = random.choice(jugadores)
-print( 'El primer jugador es: ' +str(Turno) )
+Turno = 1
+print( 'El primer jugador es (fichas negras): ' +str(random.choice([nombreJugador1, nombreJugador2])) )
 
 game_over = False
 
@@ -359,6 +371,7 @@ pygame.draw.circle(window, WHITE, (550,550), 40)
 pygame.draw.circle(window, BLACK, (450,550), 40)
 pygame.draw.circle(window, BLACK, (550,450), 40)
 
+#Ciclo de juego
 while not game_over:
 
 	for event in pygame.event.get():
@@ -366,7 +379,7 @@ while not game_over:
 		if event.type == pygame.QUIT:
 			sys.exit()
 
-		if quedanFichas(fichas, movimientos) == True:
+		if ( quedanFichas(fichas, movimientos) == True and (QuedanJugadas(Tablero, Copia, 1) == True or QuedanJugadas(Tablero, Copia, 2) == True) ):
 			if QuedanJugadas(Tablero, Copia, Turno) == True:
 				if event.type == pygame.MOUSEBUTTONDOWN:
 					(mouseX, mouseY) = pygame.mouse.get_pos()
@@ -418,17 +431,28 @@ while not game_over:
 			else:
 				ant = Turno
 				Turno = cambiarJugador(Turno)
-				print('El jugador: ' +str(ant) +' no tiene jugadas, el turno del jugador: ' +str(Turno))
-		if quedanFichas(fichas, movimientos) == False:
+				print('El jugador: ' +str(ant) +' no tiene jugadas, el turno es del jugador: ' +str(Turno))
+		else:
 			print('No quedan fichas para jugar, se termina el juego')
 			puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
 			puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+			print('El puntaje del jugador 1 es: ' +str(puntaje_1))
+			print('El puntaje del jugador 2 es: ' +str(puntaje_2))
 			if puntaje_1 > puntaje2:
 				print('El ganador es: 1. FELICIDADES')
 			else:
 				print('El ganador es: 2. FELICIDADES')
-		elif ( QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False ):
+			sys.exit()
+		if ( QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False ):
 			print('El juego ha acabado porque ningun jugador tiene movimientos.')
+			puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
+			puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+			print('El puntaje del jugador 1 es: ' +str(puntaje_1))
+			print('El puntaje del jugador 2 es: ' +str(puntaje_2))
+			if puntaje_1 > puntaje_2:
+				print('El ganador es: 1. FELICIDADES')
+			else:
+				print('El ganador es: 2. FELICIDADES')
 			sys.exit()
 
 		pygame.display.update()

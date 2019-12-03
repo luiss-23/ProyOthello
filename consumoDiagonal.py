@@ -23,7 +23,7 @@ def consumoDiagonal(A:[int], i:int, j:int, turno:int) -> 'void':
     j = l
 
     if i != 7 and j != 7:
-        while i <7 and j <7:
+        while i < 7 and j < 7:
             if A[i+1][j+1] != turno and A[i+1][j+1] != 0:
                 i = i + 1
                 j = j + 1
