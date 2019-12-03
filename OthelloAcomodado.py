@@ -427,8 +427,8 @@ while not game_over:
 						print('La jugada introducida no es valida, intente nuevamente')
 			else:
 				if Turno == 1:
-					ant= p1
-					prox= p2
+					ant= p2
+					prox= p1
 				elif Turno == 2:
 					ant= p2
 					prox = p1
