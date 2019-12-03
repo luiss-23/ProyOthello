@@ -430,8 +430,8 @@ while not game_over:
 					ant= p2
 					prox= p1
 				elif Turno == 2:
-					ant= p2
-					prox = p1
+					ant= p1
+					prox = p2
 				Turno = cambiarJugador(Turno)
 				print('El jugador: ' +str(ant) +' no tiene jugadas, el turno del jugador: ' +str(prox))
 		else: 
