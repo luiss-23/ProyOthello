@@ -452,7 +452,9 @@ while not game_over:
 				print('El jugador: ',p2, 'tiene: ' +str(puntaje_2))
 				if puntaje_1 > puntaje_2:
 					print("El ganador es: ",p1,"Felicidades.")
-				else:
+				elif puntaje_1 == puntaje_2:
+					print('Hay un empate')
+				elif:
 					print("El ganador es: ",p2,"Felicidades.")
 				sys.exit()
 			elif ( QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False ):
@@ -463,7 +465,9 @@ while not game_over:
 				print('El jugador: ',p2, 'tiene: ' +str(puntaje_2))
 				if puntaje_1 > puntaje_2:
 					print("El ganador es: ",p1,"Felicidades.")
-				else:
+				elif puntaje_1 == puntaje_2:
+					print('Hay un empate')
+				elif:
 					print("El ganador es: ",p2,"Felicidades.")
 				sys.exit()
 
