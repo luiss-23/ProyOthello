@@ -448,6 +448,8 @@ while not game_over:
 				print('No quedan fichas para jugar, se termina el juego')
 				puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
 				puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+				print('El jugador: ',p1, 'tiene: ' +str(puntaje_1))
+				print('El jugador: ',p2, 'tiene: ' +str(puntaje_2))
 				if puntaje_1 > puntaje_2:
 					print("El ganador es: ",p1,"Felicidades.")
 				else:
@@ -457,6 +459,8 @@ while not game_over:
 				print('El juego ha acabado porque ningun jugador tiene movimientos validos para hacer.')
 				puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
 				puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
+				print('El jugador: ',p1, 'tiene: ' +str(puntaje_1))
+				print('El jugador: ',p2, 'tiene: ' +str(puntaje_2))
 				if puntaje_1 > puntaje_2:
 					print("El ganador es: ",p1,"Felicidades.")
 				else:
