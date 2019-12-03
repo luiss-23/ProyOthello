@@ -1,3 +1,12 @@
+"""
+Othello.py
+
+Autores: 
+   Luis Carlos Blanco, 17-10066
+   Gabriel Alejandro Chaurio, 17-10126
+
+Ultima modificacion: 2/12/2019
+"""
 import pygame
 import sys
 import random
@@ -322,8 +331,8 @@ def puntaje2(A: [int], p2:int, i: int, j: int) -> int:
 
 
 #Nombres de Jugadores
-nombreJugador1 = input("Ingrese el nombre de uno de los jugadores:")
-nombreJugador2 = input("Ingrese el nombre del otro jugador:")
+nombreJugador1 = input("Ingrese el nombre de uno de los jugadores: ")
+nombreJugador2 = input("Ingrese el nombre del otro jugador: ")
 Nombres=[nombreJugador1,nombreJugador2]
 
 #Eleccion del primer y segundo jugador 
@@ -395,8 +404,8 @@ while not game_over:
 						reflejarJugada(Tablero, F, C, Turno)
 						puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
 						puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
-						print("El jugador",p1," tiene acumulados:"  +str(puntaje_1) + " puntos.")
-						print("El jugador",p2," tiene acumulados:"  +str(puntaje_2) + " puntos.")
+						print("El jugador",p1," tiene acumulados: "  +str(puntaje_1) + " puntos.")
+						print("El jugador",p2," tiene acumulados: "  +str(puntaje_2) + " puntos.")
 						puntaje_1 = 0
 						puntaje_2 = 0 
 						Turno = cambiarJugador(Turno)
@@ -439,19 +448,19 @@ while not game_over:
 				print('No quedan fichas para jugar, se termina el juego')
 				puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
 				puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
-				if puntaje_1 > puntaje2:
-					print("El ganador es:",p1,"Felicidades.")
+				if puntaje_1 > puntaje_2:
+					print("El ganador es: ",p1,"Felicidades.")
 				else:
-					print("El ganador es:",p2,"Felicidades.")
+					print("El ganador es: ",p2,"Felicidades.")
 				sys.exit()
 			elif ( QuedanJugadas(Tablero,Copia,1) == False and QuedanJugadas(Tablero,Copia,2) == False ):
 				print('El juego ha acabado porque ningun jugador tiene movimientos validos para hacer.')
 				puntaje_1 = puntaje1(Tablero, puntaje_1, F, C)
 				puntaje_2 = puntaje2(Tablero, puntaje_2, F, C)
-				if puntaje_1 > puntaje2:
-					print("El ganador es:",p1,"Felicidades.")
+				if puntaje_1 > puntaje_2:
+					print("El ganador es: ",p1,"Felicidades.")
 				else:
-					print("El ganador es:",p2,"Felicidades.")
+					print("El ganador es: ",p2,"Felicidades.")
 				sys.exit()
 
 		pygame.display.update()
